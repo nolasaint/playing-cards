@@ -1,4 +1,4 @@
 playing-cards
 =============
-
-Very simple Java card utilities
+<em>Something simple this way comes!</em><br>
+Very simple Java card utilities.
