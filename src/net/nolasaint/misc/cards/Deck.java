@@ -49,15 +49,21 @@ public class Deck {
 		cards.clear();
 		discard.clear();
 		
-		int size = (hasJokers) ? 54 * decks : 52 * decks;
-		
 		// Populate list with all values 0 - (size - 1)
-		for (int i = 0; i < size; i++) cards.add(i + 1);
+		for (int i = 1; i <= (54 * decks); i++) {
+			int faceValue = i;
+			
+			while (faceValue > 54) faceValue -= 54;
+			
+			// If specified to have no jokers, skip adding jokers
+			if (hasJokers || faceValue != 53 && faceValue != 54) cards.add(i);
+			else if (faceValue == 53 || faceValue == 54) continue;
+			
+		}
 		
 	}
 	
 	public void shuffle() {
-		// Randomly sort cards
 		Collections.shuffle(cards);
 		
 	}
@@ -82,8 +88,19 @@ public class Deck {
 		// Remove card from active deck and add to discard pile
 		cards.remove(0);
 		discard.add(drawnCard);
+		while (drawnCard > 54) drawnCard -= 54;
 		
 		return drawnCard;
+		
+	}
+	
+	// Not recursive so that draw() can return non-array
+	public int[] draw(int iterations) {
+		int[] drawnCards = new int[iterations];
+		
+		for (int i = 0; i < iterations; i++) drawnCards[i] = draw();
+		
+		return drawnCards;
 		
 	}
 	

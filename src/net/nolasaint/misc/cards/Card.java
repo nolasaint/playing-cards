@@ -2,6 +2,9 @@ package net.nolasaint.misc.cards;
 
 public class Card {
 	
+	private static final String[] SUITS = {"Spades", "Diamonds", "Clubs",
+		"Hearts"};
+	
 	// Spades
 	public static final int ACE_SPADES = 1;
 	public static final int TWO_SPADES = 2;
@@ -69,6 +72,9 @@ public class Card {
 	// Returns string representation of numerical card value
 	public static String toString(int value) {
 		
+		// Checks if card is in next deck - TODO Deprecated
+		if (value > 54) value -= 54;
+		
 		if (value == 53) return "Black Joker";
 		if (value == 54) return "Red Joker";
 		
@@ -76,7 +82,6 @@ public class Card {
 		int card = (value % 13 == 0) ? 13 : value % 13;
 		int suit = (int) Math.floor((double) value / 13.25);
 		String cardName = "";
-		String suitName = "";
 		
 		switch (card) {
 		case 1:
@@ -101,26 +106,7 @@ public class Card {
 			
 		}
 		
-		switch (suit) {
-		case 0:
-			suitName = "Spades";
-			break;
-			
-		case 1:
-			suitName = "Diamonds";
-			break;
-			
-		case 2:
-			suitName = "Clubs";
-			break;
-			
-		case 3:
-			suitName = "Hearts";
-			break;
-			
-		}
-		
-		return cardName.concat(" of ").concat(suitName);
+		return cardName.concat(" of ").concat(SUITS[suit]);
 		
 	}
 	
